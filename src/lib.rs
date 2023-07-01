@@ -1,4 +1,6 @@
-pub const FRONTEND_DIR: &str = "../rustystack-ui";
+pub mod config {
+    pub const FRONTEND_DIR: &str = "../rustystack-ui";
+}
 
 pub fn add(left: usize, right: usize) -> usize {
     left + right
