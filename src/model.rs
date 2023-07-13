@@ -1,16 +1,16 @@
 use dioxus::prelude::*;
 use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Props, Eq, Deserialize, Serialize)]
-pub struct GitLink {
+pub struct Gitlink {
     pub user: String,
     pub repo: String,
 }
-impl ToString for String {
+impl ToString for Gitlink {
     fn to_string(&self) -> String {
         format!("https://www.github.com/{}/{}.git", self.user, self.repo)
     }
 }
-impl Default for GitLink {
+impl Default for Gitlink {
     fn default() -> Self {
         Self {
             user: String::from("gohermgo"),
@@ -18,11 +18,10 @@ impl Default for GitLink {
         }
     }
 }
-
-#[derive(Clone, PartialEq)]
-enum CardCategory {
+#[derive(Clone, PartialEq, Eq, Deserialize, Serialize)]
+pub enum CardCategory {
     Freetime,
-    Proffesional,
+    Professional,
     Academic,
 }
 impl ToString for CardCategory {
@@ -34,7 +33,6 @@ impl ToString for CardCategory {
         }
     }
 }
-
 #[derive(Clone, PartialEq, Props, Eq, Deserialize, Serialize)]
 pub struct Project {
     #[props(default = String::from("blank title"))]
@@ -43,8 +41,8 @@ pub struct Project {
     pub description: String,
     #[props(default = CardCategory::Freetime)]
     pub category: CardCategory,
-    #[props(default = GitLink::default())]
-    pub git: GitLink,
+    #[props(default = None)]
+    pub git: Option<Gitlink>,
     #[props(default = String::from("https://www.placehold.co/400"))]
     pub image_url: String,
 }
